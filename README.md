@@ -1,36 +1,69 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Fortify Pest Control Inc. — Website
 
-## Getting Started
+A modern, responsive marketing website for Fortify Pest Control Inc., a locally
+owned pest control company serving Winnipeg and Southern Manitoba.
 
-First, run the development server:
+Built with **Next.js 16 (App Router)**, **TypeScript**, **Tailwind CSS 4**, and
+**lucide-react** icons. Brand palette (green `#56B351` + navy `#033562`) is
+derived from the company logo.
+
+## Pages
+
+| Route          | Description                                                       |
+| -------------- | ---------------------------------------------------------------- |
+| `/`            | Home — hero, stats, services, about, why-us, process, areas, CTA |
+| `/services`    | All 10 services with full descriptions                           |
+| `/about`       | Company story, mission, values, guarantee                        |
+| `/contact`     | Booking form + contact details, hours, service areas             |
+| `/api/contact` | Handles booking form submissions                                 |
+
+Also includes `sitemap.xml`, `robots.txt`, and a custom 404 page.
+
+## Getting started
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+npm run dev      # http://localhost:3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Other scripts:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+npm run build    # production build
+npm run start    # serve the production build
+npm run lint     # ESLint
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Booking form email delivery
 
-## Learn More
+The contact form works out of the box — submissions are validated and logged
+server-side. To deliver booking requests to **info@fortifypest.ca**, configure
+an email provider via environment variables (see `.env.example`):
 
-To learn more about Next.js, take a look at the following resources:
+1. Create an account at [resend.com](https://resend.com) and verify the
+   `fortifypest.ca` domain.
+2. Copy `.env.example` to `.env.local` and set:
+   - `RESEND_API_KEY`
+   - `CONTACT_FROM_EMAIL` (a verified sender, e.g. `noreply@fortifypest.ca`)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+No other code changes are needed — the API route in
+`src/app/api/contact/route.ts` will start sending emails automatically.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Editing content
 
-## Deploy on Vercel
+Most site content (services, service areas, phone, email, hours, slogan) lives
+in a single file: **`src/lib/site.ts`**. Update it there and it propagates
+across the whole site.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Project structure
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```
+src/
+  app/                 # routes (home, services, about, contact, api, seo)
+  components/          # Header, Footer, ServiceCard, PageHero, BookingForm
+    sections/          # homepage sections (Hero, Stats, Process, …)
+    ui/                # Container, Button, SectionHeading, Reveal
+  lib/                 # site.ts (content/config), cn.ts (helper)
+public/
+  logo.svg             # company logo
+```
