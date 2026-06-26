@@ -1,7 +1,9 @@
 import { Phone, ShieldCheck, Leaf, Star } from "lucide-react";
 import Container from "@/components/ui/Container";
 import Button from "@/components/ui/Button";
-import HeroVisual from "@/components/sections/HeroVisual";
+import HeroQuoteForm from "@/components/sections/HeroQuoteForm";
+import HeroWave from "@/components/sections/HeroWave";
+import HeroBackground from "@/components/sections/HeroBackground";
 import { site } from "@/lib/site";
 
 const chips = [
@@ -12,21 +14,29 @@ const chips = [
 
 export default function Hero() {
   return (
-    <section className="relative overflow-hidden bg-fort-navy text-white">
-      {/* Background layers */}
-      <div className="absolute inset-0 bg-grid opacity-[0.15]" />
-      <div className="pointer-events-none absolute -right-40 -top-40 h-[480px] w-[480px] rounded-full bg-fort-green/20 blur-3xl" />
-      <div className="pointer-events-none absolute -bottom-48 -left-32 h-[420px] w-[420px] rounded-full bg-fort-navy-500/40 blur-3xl" />
+    <section className="relative z-20 bg-fort-navy text-white">
+      {/* Background layers — clipped to the hero so only the form overflows below */}
+      <div className="absolute inset-0 overflow-hidden">
+        {/* Photo slideshow */}
+        <HeroBackground />
+        {/* Mobile: text spans the full width, so flood it with a uniform dark
+            overlay rather than the desktop left-to-right gradient. */}
+        <div className="absolute inset-0 bg-fort-navy-900/72 lg:hidden" />
+        {/* Desktop: dark on the left where the copy sits, fading toward the photo on the right */}
+        <div className="absolute inset-0 hidden bg-linear-to-r from-fort-navy-900 via-fort-navy-900/85 to-fort-navy-900/20 lg:block" />
+        {/* Seat the foot of the hero in solid navy for a clean divider line */}
+        <div className="absolute inset-0 bg-linear-to-t from-fort-navy via-fort-navy/25 to-transparent" />
+        {/* Brand depth */}
+        <div className="absolute inset-0 bg-grid opacity-[0.12]" />
+        <div className="pointer-events-none absolute -right-40 -top-40 h-[480px] w-[480px] rounded-full bg-fort-green/20 blur-3xl" />
+        {/* Animated wave divider into the Stats section */}
+        <HeroWave />
+      </div>
 
-      <Container className="relative grid gap-8 py-10 sm:py-12 lg:grid-cols-2 lg:items-center lg:gap-14 lg:py-16">
+      <Container className="relative grid gap-10 py-12 sm:py-14 lg:grid-cols-2 lg:items-center lg:gap-14 lg:py-16">
         {/* Copy */}
         <div className="animate-fade-up">
-          <span className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-1.5 text-xs font-bold uppercase tracking-wider text-fort-green-200">
-            <span className="h-1.5 w-1.5 rounded-full bg-fort-green" />
-            Trusted Pest Control in Manitoba
-          </span>
-
-          <h1 className="mt-6 text-balance text-4xl font-extrabold leading-[1.08] tracking-tight sm:text-5xl lg:text-6xl">
+          <h1 className="text-balance text-4xl font-extrabold leading-[1.08] tracking-tight sm:text-5xl lg:text-6xl">
             We build a{" "}
             <span className="relative whitespace-nowrap text-fort-green-300">
               fort
@@ -36,6 +46,7 @@ export default function Hero() {
                 className="absolute -bottom-2 left-0 w-full text-fort-green/60"
               >
                 <path
+                  className="hero-underline"
                   d="M2 9C50 3 150 3 198 9"
                   stroke="currentColor"
                   strokeWidth="4"
@@ -54,9 +65,6 @@ export default function Hero() {
           </p>
 
           <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
-            <Button href="/contact" size="lg">
-              Get Your Free Quote
-            </Button>
             <Button href={site.phoneHref} variant="white" size="lg">
               <Phone className="h-5 w-5" />
               {site.phone}
@@ -76,23 +84,14 @@ export default function Hero() {
           </div>
         </div>
 
-        {/* Visual */}
-        <HeroVisual />
+        {/* Quote form — dropped so it sits centered on the hero / stats divider.
+            Mobile (1 col): negative margin spills it downward with no gap.
+            Desktop (2 cols): translate-y drops it across the wave while the
+            photo shows above; it lands beside the left-aligned stats below. */}
+        <div className="relative z-30 animate-fade-up -mb-40 sm:-mb-48 lg:mb-0 lg:translate-y-90 lg:ml-auto lg:max-w-md lg:self-start [animation-delay:150ms]">
+          <HeroQuoteForm />
+        </div>
       </Container>
-
-      {/* Bottom wave */}
-      <div className="relative">
-        <svg
-          viewBox="0 0 1440 80"
-          className="block w-full text-white"
-          preserveAspectRatio="none"
-        >
-          <path
-            fill="currentColor"
-            d="M0 80h1440V32c-240 40-480 48-720 24S240 0 0 24z"
-          />
-        </svg>
-      </div>
     </section>
   );
 }

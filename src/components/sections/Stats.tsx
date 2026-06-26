@@ -2,29 +2,63 @@ import Container from "@/components/ui/Container";
 import Reveal from "@/components/ui/Reveal";
 
 const stats = [
-  { value: "8+", label: "Years of experience" },
-  { value: "10+", label: "Pest services offered" },
-  { value: "6+", label: "Manitoba cities served" },
-  { value: "100%", label: "Satisfaction guarantee" },
+  { 
+    num: "8", 
+    suffix: "+", 
+    label: "Years of Experience", 
+    desc: "Trusted by families and businesses since 2018." 
+  },
+  { 
+    num: "10", 
+    suffix: "+", 
+    label: "Pest Services", 
+    desc: "Comprehensive solutions for any type of infestation." 
+  },
+  { 
+    num: "6", 
+    suffix: "+", 
+    label: "Cities Served", 
+    desc: "Local experts covering the Southern Manitoba region." 
+  },
+  { 
+    num: "100", 
+    suffix: "%", 
+    label: "Satisfaction", 
+    desc: "We don't stop until the pests are completely gone." 
+  },
 ];
 
 export default function Stats() {
   return (
-    <section className="bg-white">
-      <Container className="pb-4">
-        <div className="grid grid-cols-2 gap-px overflow-hidden rounded-3xl border border-slate-100 bg-slate-100 shadow-card lg:grid-cols-4">
+    <section className="relative z-10 bg-white pb-12 pt-44 sm:pb-16 sm:pt-52 lg:pb-24 lg:pt-8">
+      <Container>
+        {/* 2 per row, kept on the left so the overlapping hero form sits to the right */}
+        <div className="grid max-w-md grid-cols-2 gap-x-8 gap-y-10 sm:max-w-xl sm:gap-x-12 sm:gap-y-12 lg:max-w-[600px] lg:gap-x-16 lg:gap-y-14">
           {stats.map((s, i) => (
             <Reveal
               key={s.label}
-              delay={i * 80}
-              className="bg-white px-6 py-8 text-center"
+              delay={i * 100}
+              className="group flex flex-col"
             >
-              <div className="text-4xl font-extrabold text-fort-green-600">
-                {s.value}
+              {/* Accent line: permanently visible on mobile, expands on hover on desktop */}
+              <div className="mb-4 h-[3px] w-6 rounded-full bg-fort-green/40 transition-all duration-500 ease-out group-hover:w-16 group-hover:bg-fort-green sm:mb-6 sm:w-8 sm:group-hover:w-20" />
+              
+              <div className="flex items-baseline gap-1">
+                <span className="text-4xl font-black tracking-tighter text-slate-900 sm:text-5xl md:text-6xl">
+                  {s.num}
+                </span>
+                <span className="text-2xl font-bold text-fort-green sm:text-3xl md:text-4xl">
+                  {s.suffix}
+                </span>
               </div>
-              <div className="mt-1 text-sm font-medium text-slate-600">
+              
+              <h3 className="mt-3 text-sm font-bold leading-tight text-slate-900 sm:mt-4 sm:text-lg">
                 {s.label}
-              </div>
+              </h3>
+              
+              <p className="mt-1.5 max-w-[260px] text-xs leading-relaxed text-slate-500 sm:mt-2 sm:text-sm">
+                {s.desc}
+              </p>
             </Reveal>
           ))}
         </div>

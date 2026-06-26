@@ -14,13 +14,13 @@ export default function Footer() {
           {/* Brand */}
           <div className="lg:col-span-4">
             <div className="flex items-center gap-3">
-              <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-white">
+              <span className="flex items-center justify-center">
                 <Image
-                  src="/logo.svg"
+                  src="/logo-white.svg"
                   alt="Fortify Pest Control logo"
-                  width={40}
-                  height={26}
-                  className="h-8 w-auto"
+                  width={48}
+                  height={31}
+                  className="h-10 w-auto"
                 />
               </span>
               <span className="flex flex-col leading-none">
