@@ -8,9 +8,9 @@ import { cn } from "@/lib/cn";
    when object-cover crops hard on narrow (mobile) viewports, where the
    crop eats the sides of these landscape photos rather than top/bottom. */
 const SLIDES = [
-  { src: "/hero-bg-1.webp", position: "object-[70%_30%] lg:object-[62%_32%]" },
-  { src: "/hero-bg-2.webp", position: "object-[68%_42%] lg:object-[50%_38%]" },
-  { src: "/hero-bg-3.jpg", position: "object-[46%_60%] lg:object-[46%_52%]" },
+  { src: "/hero-bg-1.png", position: "object-[70%_30%] lg:object-[62%_32%]" },
+  { src: "/hero-bg-2.png", position: "object-[68%_42%] lg:object-[50%_38%]" },
+  { src: "/hero-bg-3.png", position: "object-[46%_60%] lg:object-[46%_52%]" },
 ];
 
 const INTERVAL_MS = 6000;

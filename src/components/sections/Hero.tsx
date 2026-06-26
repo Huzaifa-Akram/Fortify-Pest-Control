@@ -19,15 +19,15 @@ export default function Hero() {
       <div className="absolute inset-0 overflow-hidden">
         {/* Photo slideshow */}
         <HeroBackground />
-        {/* Mobile: text spans the full width, so flood it with a uniform dark
-            overlay rather than the desktop left-to-right gradient. */}
-        <div className="absolute inset-0 bg-fort-navy-900/72 lg:hidden" />
+        {/* Mobile: text spans the full width — darken near the top copy and
+            let the photo breathe lower down, rather than a flat heavy tint. */}
+        <div className="absolute inset-0 bg-linear-to-b from-fort-navy-900/75 via-fort-navy-900/45 to-fort-navy-900/20 lg:hidden" />
         {/* Desktop: dark on the left where the copy sits, fading toward the photo on the right */}
-        <div className="absolute inset-0 hidden bg-linear-to-r from-fort-navy-900 via-fort-navy-900/85 to-fort-navy-900/20 lg:block" />
+        <div className="absolute inset-0 hidden bg-linear-to-r from-fort-navy-900/95 via-fort-navy-900/55 to-fort-navy-900/10 lg:block" />
         {/* Seat the foot of the hero in solid navy for a clean divider line */}
-        <div className="absolute inset-0 bg-linear-to-t from-fort-navy via-fort-navy/25 to-transparent" />
+        <div className="absolute inset-0 bg-linear-to-t from-fort-navy via-fort-navy/15 to-transparent" />
         {/* Brand depth */}
-        <div className="absolute inset-0 bg-grid opacity-[0.12]" />
+        <div className="absolute inset-0 bg-grid opacity-[0.08]" />
         <div className="pointer-events-none absolute -right-40 -top-40 h-[480px] w-[480px] rounded-full bg-fort-green/20 blur-3xl" />
         {/* Animated wave divider into the Stats section */}
         <HeroWave />
