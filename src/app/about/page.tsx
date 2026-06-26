@@ -10,7 +10,7 @@ import { site } from "@/lib/site";
 export const metadata: Metadata = {
   title: "About Us",
   description:
-    "Learn about Fortify Pest Control Inc. — over 8 years of certified, eco-friendly pest control experience, locally owned and operated in Manitoba.",
+    "Learn about Fortify Pest Control Inc. — over a decade of certified, eco-friendly pest control experience, locally owned and operated in Manitoba.",
 };
 
 const values = [
@@ -54,11 +54,11 @@ export default function AboutPage() {
               Our Story
             </span>
             <h2 className="mt-4 text-3xl font-extrabold tracking-tight text-fort-navy sm:text-4xl">
-              Over 8 years of dependable pest protection
+              Over a decade of dependable pest protection
             </h2>
             <div className="mt-5 space-y-4 text-base leading-relaxed text-slate-600">
               <p>
-                At Fortify Pest Control Inc., we bring over 8 years of industry
+                At Fortify Pest Control Inc., we bring over a decade of industry
                 experience to every job. Our professionally trained and
                 certified technicians are committed to providing reliable,
                 effective, and environmentally responsible pest control

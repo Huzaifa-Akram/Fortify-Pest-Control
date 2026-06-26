@@ -6,7 +6,7 @@ import Button from "@/components/ui/Button";
 const pillars = [
   {
     icon: Award,
-    title: "8+ Years Experience",
+    title: "Decade+ Experience",
     text: "Seasoned, certified technicians on every job.",
   },
   {
@@ -39,7 +39,7 @@ export default function AboutPreview() {
             Professional protection, built on integrity
           </h2>
           <p className="mt-5 text-base leading-relaxed text-slate-600">
-            At Fortify Pest Control Inc., we bring over 8 years of industry
+            At Fortify Pest Control Inc., we bring over a decade of industry
             experience to every job. Our professionally trained and certified
             technicians are committed to reliable, effective, and
             environmentally responsible pest control.

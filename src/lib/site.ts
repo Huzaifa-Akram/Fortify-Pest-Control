@@ -132,7 +132,7 @@ export const serviceAreas = [
 ];
 
 export const whyChooseUs = [
-  "Over 8 years of industry experience",
+  "Over a decade of industry experience",
   "Professionally trained & certified technicians",
   "Eco-friendly pest control solutions",
   "Residential & commercial services",
