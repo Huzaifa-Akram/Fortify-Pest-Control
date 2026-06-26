@@ -90,6 +90,14 @@ html {
   .preserve-3d {
     transform-style: preserve-3d;
   }
+  /* Sonar-style rings radiating from the WhatsApp button */
+  .animate-whatsapp-pulse {
+    animation: whatsappPulse 2.6s cubic-bezier(0.2, 0.6, 0.4, 1) infinite;
+  }
+  /* Gentle idle breathing so the button feels alive without being noisy */
+  .animate-whatsapp-breathe {
+    animation: whatsappBreathe 3.2s ease-in-out infinite;
+  }
   .bg-dots {
     background-image: radial-gradient(
       rgb(255 255 255 / 0.18) 1.4px,
@@ -153,6 +161,27 @@ html {
   }
 }
 
+@keyframes whatsappPulse {
+  0% {
+    transform: scale(0.9);
+    opacity: 0.55;
+  }
+  100% {
+    transform: scale(1.8);
+    opacity: 0;
+  }
+}
+
+@keyframes whatsappBreathe {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.06);
+  }
+}
+
 /* Respect users who prefer reduced motion */
 @media (prefers-reduced-motion: reduce) {
   .animate-hero-zoom,
@@ -160,7 +189,9 @@ html {
   .animate-float,
   .animate-float-slow,
   .wave-drift,
-  .wave-drift-slow {
+  .wave-drift-slow,
+  .animate-whatsapp-pulse,
+  .animate-whatsapp-breathe {
     animation: none;
   }
   .hero-underline {

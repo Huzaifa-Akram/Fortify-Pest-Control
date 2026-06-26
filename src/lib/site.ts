@@ -17,6 +17,8 @@ export const site = {
   shortName: "Fortify Pest Control",
   phone: "431-481-7786",
   phoneHref: "tel:+14314817786",
+  whatsappHref:
+    "https://wa.me/14314817786?text=Hi%20Fortify%20Pest%20Control%2C%20I%27d%20like%20to%20get%20a%20quote.",
   email: "info@fortifypest.ca",
   emailHref: "mailto:info@fortifypest.ca",
   region: "Manitoba",

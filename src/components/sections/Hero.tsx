@@ -61,7 +61,7 @@ export default function Hero() {
           <p className="mt-6 max-w-xl text-lg leading-relaxed text-fort-navy-100">
             Safe, effective, and environmentally responsible pest control from
             certified local technicians. Over a decade protecting families and
-            businesses across Southern Manitoba.
+            businesses across Manitoba.
           </p>
 
           <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
