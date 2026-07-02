@@ -1,14 +1,18 @@
 import {
-  Home,
-  Building2,
   Rat,
   Bug,
   BedDouble,
   ShieldAlert,
   SprayCan,
-  ShieldCheck,
-  ClipboardCheck,
   Footprints,
+  Hammer,
+  Waypoints,
+  Network,
+  Zap,
+  Bird,
+  Leaf,
+  Moon,
+  Squirrel,
   type LucideIcon,
 } from "lucide-react";
 
@@ -36,91 +40,209 @@ export type Service = {
   title: string;
   short: string;
   description: string;
+  image: string;
+  features: string[];
   icon: LucideIcon;
 };
 
 export const services: Service[] = [
   {
-    slug: "residential-pest-control",
-    title: "Residential Pest Control",
-    short: "Safe, effective protection for your home and family.",
+    slug: "bed-bug-control",
+    title: "Bed Bug Control",
+    short: "Discreet, thorough treatments at every life stage.",
     description:
-      "Protect your home from unwanted pests with safe and effective treatment solutions tailored to your property and the season.",
-    icon: Home,
-  },
-  {
-    slug: "commercial-pest-control",
-    title: "Commercial Pest Control",
-    short: "Customized programs that keep businesses compliant.",
-    description:
-      "Customized pest management programs to keep businesses pest-free and compliant with health and safety standards.",
-    icon: Building2,
-  },
-  {
-    slug: "rodent-control",
-    title: "Rodent Control",
-    short: "Inspection, treatment, exclusion & prevention.",
-    description:
-      "Comprehensive inspection, treatment, exclusion, and prevention for mice and rats — sealing entry points so they stay out.",
-    icon: Rat,
-  },
-  {
-    slug: "ant-control",
-    title: "Ant Control",
-    short: "Eliminate colonies and stop them returning.",
-    description:
-      "Targeted treatments to eliminate ant infestations at the source and prevent future activity around your property.",
-    icon: Footprints,
+      "Bed bugs spread fast and are notoriously hard to kill. Our technicians perform a detailed inspection of mattresses, furniture, and baseboards, then apply targeted treatments that eliminate bed bugs at every stage of their life cycle.",
+    image: "/services/bed-bug-control.png",
+    features: [
+      "Full property inspection & infestation mapping",
+      "Treatment of eggs, nymphs & adult bed bugs",
+      "Follow-up visits to confirm complete elimination",
+    ],
+    icon: BedDouble,
   },
   {
     slug: "cockroach-control",
     title: "Cockroach Control",
-    short: "Fast, thorough roach elimination.",
+    short: "Fast, targeted elimination — even in hidden harbourages.",
     description:
-      "Professional treatment plans designed to eliminate cockroaches quickly and effectively, including hard-to-reach harbourage areas.",
+      "Cockroaches contaminate food and multiply quickly in warm, hidden spaces. We combine gel baits, targeted applications, and sanitation guidance to wipe out infestations in kitchens, basements, and hard-to-reach harbourage areas.",
+    image: "/services/cockroach-control.jpg",
+    features: [
+      "Gel bait & residual barrier treatments",
+      "Kitchen, bathroom & basement coverage",
+      "Prevention advice to stop reinfestation",
+    ],
     icon: Bug,
   },
   {
-    slug: "bed-bug-treatment",
-    title: "Bed Bug Treatment",
-    short: "Thorough inspection and full elimination.",
+    slug: "rodent-control",
+    title: "Rodent Control",
+    short: "Inspection, removal & exclusion for mice and rats.",
     description:
-      "Thorough inspection and treatment solutions to eliminate bed bugs from your property at every stage of their life cycle.",
-    icon: BedDouble,
+      "Mice and rats gnaw wiring, contaminate food, and spread disease. We locate every entry point, remove the rodents, and seal your home or business so they can't come back.",
+    image: "/services/rodent-control.jpg",
+    features: [
+      "Full inspection & entry point identification",
+      "Safe, tamper-resistant bait stations & traps",
+      "Exclusion sealing & prevention plan",
+    ],
+    icon: Rat,
   },
   {
-    slug: "wasp-hornet-nest-removal",
-    title: "Wasp & Hornet Nest Removal",
-    short: "Safe removal to protect everyone on site.",
+    slug: "argentine-ant-control",
+    title: "Argentine Ant Control",
+    short: "Colony-level treatment for fast-spreading Argentine ants.",
     description:
-      "Safe removal of wasp and hornet nests to protect your family, customers, and employees from painful stings.",
-    icon: ShieldAlert,
+      "Argentine ants form massive interconnected colonies that can quickly overwhelm a property. We use non-repellent treatments and baiting programs that reach the queens — not just the ants you see on the trail.",
+    image: "/services/argentine-ant-control.jpg",
+    features: [
+      "Colony & trail mapping",
+      "Bait programs that reach the queens",
+      "Exterior perimeter defence",
+    ],
+    icon: Footprints,
+  },
+  {
+    slug: "carpenter-ant-control",
+    title: "Carpenter Ant Control",
+    short: "Protect your structure from wood-destroying ants.",
+    description:
+      "Carpenter ants tunnel through structural wood to build their nests, causing serious damage over time. We track down parent and satellite nests, eliminate them, and help you correct the moisture conditions that attracted them.",
+    image: "/services/carpenter-ant-control.jpg",
+    features: [
+      "Parent & satellite nest location",
+      "Targeted dust & residual treatments",
+      "Moisture & wood-damage guidance",
+    ],
+    icon: Hammer,
+  },
+  {
+    slug: "acrobat-ant-control",
+    title: "Acrobat Ant Control",
+    short: "Targeted removal of ants nesting in walls & wood.",
+    description:
+      "Acrobat ants nest in moisture-damaged wood and wall voids, often following wires and pipes indoors. We eliminate active nests and treat the trails and entry points they use to get inside.",
+    image: "/services/acrobat-ant-control.jpg",
+    features: [
+      "Nest & trail identification",
+      "Wall-void & entry point treatment",
+      "Prevention of repeat activity",
+    ],
+    icon: Waypoints,
   },
   {
     slug: "spider-control",
     title: "Spider Control",
-    short: "Reduce activity and prevent infestations.",
+    short: "Interior & exterior treatments that keep spiders out.",
     description:
-      "Reduce spider activity and prevent infestations around your property with targeted interior and exterior treatments.",
-    icon: Bug,
+      "Spider webs around windows, decks, and eaves make a property feel unkempt — and some species bite. Our interior and exterior treatments reduce spider activity and knock down the insect populations they feed on.",
+    image: "/services/spider-control.jpg",
+    features: [
+      "Web removal & harbourage treatment",
+      "Exterior perimeter barrier",
+      "Reduced insect prey population",
+    ],
+    icon: Network,
   },
   {
-    slug: "preventative-pest-management",
-    title: "Preventative Pest Management",
-    short: "Stop pests before they start.",
+    slug: "wasp-control",
+    title: "Wasp Control",
+    short: "Safe nest removal to protect family & staff.",
     description:
-      "Regular maintenance programs designed to stop pest problems before they start, keeping your property protected year-round.",
-    icon: ShieldCheck,
+      "Wasps nesting near doorways, decks, and playgrounds put your family, customers, and employees at risk of painful stings. We safely remove active nests and treat the area to discourage rebuilding.",
+    image: "/services/wasp-control.jpg",
+    features: [
+      "Safe removal of active nests",
+      "Treatment of high-risk nesting spots",
+      "Seasonal prevention options",
+    ],
+    icon: Zap,
   },
   {
-    slug: "property-inspections",
-    title: "Property Inspections",
-    short: "Identify activity, entry points & risk.",
+    slug: "hornet-control",
+    title: "Hornet Control",
+    short: "Professional removal of aggressive hornet nests.",
     description:
-      "Detailed inspections to identify pest activity, entry points, and risk factors — with a clear plan to address them.",
-    icon: ClipboardCheck,
+      "Hornets defend their nests aggressively and can sting repeatedly. Our technicians use professional equipment to remove hornet nests safely — from ground level to rooflines and trees.",
+    image: "/services/hornet-control.jpg",
+    features: [
+      "Protective, professional-grade removal",
+      "Roofline, tree & wall-void nests",
+      "Area treatment to prevent return",
+    ],
+    icon: ShieldAlert,
+  },
+  {
+    slug: "pigeon-control",
+    title: "Pigeon Control",
+    short: "Humane deterrents that keep pigeons off your building.",
+    description:
+      "Pigeon droppings damage roofs, clog gutters, and create health hazards. We install humane deterrents — netting, spikes, and exclusion — that keep pigeons off ledges, signs, and rooftops for good.",
+    image: "/services/pigeon-control.jpg",
+    features: [
+      "Humane netting, spikes & deterrents",
+      "Roost cleanup & sanitation",
+      "Long-term exclusion solutions",
+    ],
+    icon: Bird,
+  },
+  {
+    slug: "maple-bug-control",
+    title: "Maple Bug Control",
+    short: "Stop maple bugs swarming your walls each fall.",
+    description:
+      "Maple bugs (boxelder bugs) swarm sun-warmed walls in fall and slip inside to overwinter. We treat exterior gathering points and seal entryways so they stay outside where they belong.",
+    image: "/services/maple-bug-control.jpg",
+    features: [
+      "Exterior swarm treatments",
+      "Entry point sealing",
+      "Fall prevention programs",
+    ],
+    icon: Leaf,
+  },
+  {
+    slug: "bat-control",
+    title: "Bat Control",
+    short: "Humane bat exclusion that keeps them out for good.",
+    description:
+      "Bats in an attic leave behind droppings and health risks — but they're protected and must be handled humanely. We install one-way exclusion doors so bats leave safely and can't return, then seal every gap they used.",
+    image: "/services/bat-control.png",
+    features: [
+      "Humane one-way exclusion doors",
+      "Full entry point sealing",
+      "Attic inspection & cleanup guidance",
+    ],
+    icon: Moon,
+  },
+  {
+    slug: "squirrel-control",
+    title: "Squirrel Control",
+    short: "Humane squirrel removal & entry-point repair.",
+    description:
+      "Squirrels chew through soffits, vents, and wiring to nest in attics. We humanely remove them, repair the damage, and seal entry points so your attic stays wildlife-free.",
+    image: "/services/squirrel-control.jpg",
+    features: [
+      "Humane removal & one-way doors",
+      "Entry point repair & sealing",
+      "Attic damage assessment",
+    ],
+    icon: Squirrel,
   },
 ];
+
+/* Curated picks for the home-page preview — one card per pest family */
+const featuredSlugs = [
+  "bed-bug-control",
+  "cockroach-control",
+  "rodent-control",
+  "carpenter-ant-control",
+  "spider-control",
+  "wasp-control",
+];
+
+export const featuredServices = featuredSlugs.map(
+  (slug) => services.find((s) => s.slug === slug)!,
+);
 
 export const treatmentIcon = SprayCan;
 

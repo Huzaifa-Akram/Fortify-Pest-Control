@@ -90,6 +90,17 @@ html {
   .preserve-3d {
     transform-style: preserve-3d;
   }
+  /* Flip-card helpers (service cards on the home page) */
+  .perspective-1600 {
+    perspective: 1600px;
+  }
+  .backface-hidden {
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+  }
+  .rotate-y-180 {
+    transform: rotateY(180deg);
+  }
   /* Sonar-style rings radiating from the WhatsApp button */
   .animate-whatsapp-pulse {
     animation: whatsappPulse 2.6s cubic-bezier(0.2, 0.6, 0.4, 1) infinite;
