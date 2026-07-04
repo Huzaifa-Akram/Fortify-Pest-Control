@@ -1,4 +1,4 @@
-import { Phone, ShieldCheck, Leaf, Star } from "lucide-react";
+import { Phone, ShieldCheck, Leaf, Star, BadgeCheck } from "lucide-react";
 import Container from "@/components/ui/Container";
 import Button from "@/components/ui/Button";
 import HeroQuoteForm from "@/components/sections/HeroQuoteForm";
@@ -10,6 +10,7 @@ const chips = [
   { icon: ShieldCheck, label: "Licensed & Certified" },
   { icon: Leaf, label: "Eco-Friendly Methods" },
   { icon: Star, label: "100% Satisfaction" },
+  { icon: BadgeCheck, label: "3-Month Guarantee" },
 ];
 
 export default function Hero() {
@@ -71,16 +72,27 @@ export default function Hero() {
             </Button>
           </div>
 
-          <div className="mt-9 flex flex-wrap gap-x-6 gap-y-3">
-            {chips.map((c) => (
-              <div
-                key={c.label}
-                className="flex items-center gap-2 text-sm font-semibold text-fort-navy-100"
-              >
-                <c.icon className="h-5 w-5 text-fort-green-300" />
-                {c.label}
-              </div>
-            ))}
+          <div className="mt-9 grid grid-cols-2 gap-x-4 gap-y-3 sm:gap-x-6">
+            {chips.map((c) => {
+              const isHighlight = c.label === "3-Month Guarantee";
+              return (
+                <div
+                  key={c.label}
+                  className={`flex items-center gap-2 text-sm font-semibold transition-all duration-300 ${
+                    isHighlight
+                      ? "animate-tag-glow text-fort-navy-100"
+                      : "text-fort-navy-100"
+                  }`}
+                >
+                  <c.icon
+                    className={`h-5 w-5 shrink-0 text-fort-green-300 ${
+                      isHighlight ? "animate-tag-icon-glow" : ""
+                    }`}
+                  />
+                  <span className="leading-tight">{c.label}</span>
+                </div>
+              );
+            })}
           </div>
         </div>
 

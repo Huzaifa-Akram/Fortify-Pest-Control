@@ -13,7 +13,7 @@ export default function ServiceAreas() {
           <SectionHeading
             align="left"
             eyebrow="Service Areas"
-            title="Proudly serving Southern Manitoba"
+            title="Proudly serving Manitoba"
             description="Locally owned and operated, we provide fast and reliable pest control across the region — and the surrounding communities too."
           />
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
@@ -44,7 +44,7 @@ export default function ServiceAreas() {
             </Reveal>
           ))}
           <div className="col-span-2 rounded-2xl border border-dashed border-fort-green-300 bg-fort-green-50/40 px-5 py-4 text-center text-sm font-medium text-fort-green-800">
-            + Surrounding communities throughout Southern Manitoba
+            + Surrounding communities throughout Manitoba
           </div>
         </div>
       </Container>

@@ -36,46 +36,46 @@ export default function Footer() {
               Building a fort around your home and business — one pest-free
               property at a time. Locally owned and operated in Manitoba.
             </p>
-            <div className="mt-6 inline-flex items-center gap-2 rounded-full bg-fort-green/15 px-4 py-2 text-sm font-semibold text-fort-green-200">
-              100% Satisfaction Guarantee
+          </div>
+
+          {/* Grouped Services and Areas for mobile side-by-side layout */}
+          <div className="grid grid-cols-2 gap-8 sm:gap-12 lg:col-span-5 lg:grid-cols-5">
+            {/* Services */}
+            <div className="lg:col-span-3">
+              <h3 className="text-sm font-bold uppercase tracking-wider text-white">
+                Services
+              </h3>
+              <ul className="mt-5 space-y-2.5 text-sm">
+                {services.slice(0, 8).map((s) => (
+                  <li key={s.slug}>
+                    <Link
+                      href={`/services#${s.slug}`}
+                      className="text-fort-navy-100/80 transition-colors hover:text-fort-green-300"
+                    >
+                      {s.title}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
             </div>
-          </div>
 
-          {/* Services */}
-          <div className="lg:col-span-3">
-            <h3 className="text-sm font-bold uppercase tracking-wider text-white">
-              Services
-            </h3>
-            <ul className="mt-5 space-y-2.5 text-sm">
-              {services.slice(0, 8).map((s) => (
-                <li key={s.slug}>
-                  <Link
-                    href={`/services#${s.slug}`}
-                    className="text-fort-navy-100/80 transition-colors hover:text-fort-green-300"
+            {/* Areas */}
+            <div className="lg:col-span-2">
+              <h3 className="text-sm font-bold uppercase tracking-wider text-white">
+                Service Areas
+              </h3>
+              <ul className="mt-5 space-y-2.5 text-sm">
+                {serviceAreas.map((area) => (
+                  <li
+                    key={area}
+                    className="flex items-center gap-2 text-fort-navy-100/80"
                   >
-                    {s.title}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Areas */}
-          <div className="lg:col-span-2">
-            <h3 className="text-sm font-bold uppercase tracking-wider text-white">
-              Service Areas
-            </h3>
-            <ul className="mt-5 space-y-2.5 text-sm">
-              {serviceAreas.map((area) => (
-                <li
-                  key={area}
-                  className="flex items-center gap-2 text-fort-navy-100/80"
-                >
-                  <MapPin className="h-3.5 w-3.5 text-fort-green-400" />
-                  {area}
-                </li>
-              ))}
-            </ul>
+                    <MapPin className="h-3.5 w-3.5 shrink-0 text-fort-green-400" />
+                    {area}
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
 
           {/* Contact */}
@@ -124,7 +124,7 @@ export default function Footer() {
             © {year} {site.name}. All rights reserved.
           </p>
           <p>
-            Serving Winnipeg, Brandon &amp; Southern Manitoba — Eco-friendly pest
+            Serving Winnipeg, Brandon &amp; Manitoba — Eco-friendly pest
             control you can trust.
           </p>
         </div>

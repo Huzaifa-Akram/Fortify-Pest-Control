@@ -18,7 +18,7 @@ export const metadata: Metadata = {
     template: "%s | Fortify Pest Control Inc.",
   },
   description:
-    "Fortify Pest Control Inc. provides safe, eco-friendly, and reliable residential & commercial pest control across Winnipeg and Southern Manitoba. 100% satisfaction guarantee.",
+    "Fortify Pest Control Inc. provides safe, eco-friendly, and reliable residential & commercial pest control across Winnipeg and Manitoba. 100% satisfaction guarantee.",
   keywords: [
     "pest control Manitoba",
     "pest control Winnipeg",

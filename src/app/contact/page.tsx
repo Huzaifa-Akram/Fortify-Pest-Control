@@ -8,7 +8,7 @@ import { serviceAreas, site } from "@/lib/site";
 export const metadata: Metadata = {
   title: "Contact & Free Quote",
   description:
-    "Request a free, no-obligation pest control quote from Fortify Pest Control Inc. Call 431-481-7786 or fill out our booking form. Serving Winnipeg and Southern Manitoba.",
+    "Request a free, no-obligation pest control quote from Fortify Pest Control Inc. Call 431-481-7786 or fill out our booking form. Serving Winnipeg and Manitoba.",
 };
 
 export default function ContactPage() {

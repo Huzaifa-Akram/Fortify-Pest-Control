@@ -1,17 +1,81 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { Phone, ChevronRight, X } from "lucide-react";
-import { navLinks, site } from "@/lib/site";
+import { Phone, ChevronRight, ChevronDown, X } from "lucide-react";
+import { navLinks, services, site } from "@/lib/site";
+import { blogPosts } from "@/lib/blog";
 import { cn } from "@/lib/cn";
 import Button from "@/components/ui/Button";
+
+const MEGA_MENU_LABELS = ["Services", "Blog"] as const;
+
+function ServicesMenu({ onNavigate }: { onNavigate: () => void }) {
+  return (
+    <div className="w-[420px] overflow-hidden rounded-2xl border border-slate-100 bg-white shadow-soft ring-1 ring-slate-900/5">
+      <div className="grid grid-cols-2 gap-0.5 p-2">
+        {services.map((service) => (
+          <Link
+            key={service.slug}
+            href={`/services#${service.slug}`}
+            onClick={onNavigate}
+            className="rounded-lg px-3.5 py-2.5 text-sm font-semibold text-fort-navy transition-colors duration-200 hover:bg-fort-green-50 hover:text-fort-green-700"
+          >
+            {service.title}
+          </Link>
+        ))}
+      </div>
+      <div className="border-t border-slate-100 bg-slate-50/70 px-4 py-3">
+        <Link
+          href="/services"
+          onClick={onNavigate}
+          className="inline-flex items-center gap-1 text-sm font-bold text-fort-green-700 transition-colors hover:text-fort-green-800"
+        >
+          View all services
+          <ChevronRight className="h-3.5 w-3.5" />
+        </Link>
+      </div>
+    </div>
+  );
+}
+
+function BlogMenu({ onNavigate }: { onNavigate: () => void }) {
+  return (
+    <div className="w-[440px] overflow-hidden rounded-2xl border border-slate-100 bg-white shadow-soft ring-1 ring-slate-900/5">
+      <div className="no-scrollbar grid max-h-96 grid-cols-1 gap-0.5 overflow-y-auto p-2">
+        {blogPosts.map((post) => (
+          <Link
+            key={post.slug}
+            href={`/blog/${post.slug}`}
+            onClick={onNavigate}
+            className="rounded-lg px-3.5 py-2.5 text-sm font-semibold leading-snug text-fort-navy transition-colors duration-200 hover:bg-fort-green-50 hover:text-fort-green-700"
+          >
+            {post.title}
+          </Link>
+        ))}
+      </div>
+      <div className="border-t border-slate-100 bg-slate-50/70 px-4 py-3">
+        <Link
+          href="/blog"
+          onClick={onNavigate}
+          className="inline-flex items-center gap-1 text-sm font-bold text-fort-green-700 transition-colors hover:text-fort-green-800"
+        >
+          View all articles
+          <ChevronRight className="h-3.5 w-3.5" />
+        </Link>
+      </div>
+    </div>
+  );
+}
 
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const [openDropdown, setOpenDropdown] = useState<string | null>("Services");
+  const [expandedMobile, setExpandedMobile] = useState<string | null>(null);
+  const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const pathname = usePathname();
 
   useEffect(() => {
@@ -24,6 +88,8 @@ export default function Header() {
   // Close on route change, Escape, and lock body scroll while the drawer is open
   useEffect(() => {
     setOpen(false);
+    setOpenDropdown(null);
+    setExpandedMobile(null);
   }, [pathname]);
 
   useEffect(() => {
@@ -37,6 +103,33 @@ export default function Header() {
     };
   }, [open]);
 
+  // Desktop mega-menu: close on Escape or on any click outside it
+  useEffect(() => {
+    if (!openDropdown) return;
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpenDropdown(null);
+    const onClick = (e: MouseEvent) => {
+      if (!(e.target as HTMLElement).closest("[data-nav-dropdown]")) {
+        setOpenDropdown(null);
+      }
+    };
+    document.addEventListener("keydown", onKey);
+    document.addEventListener("click", onClick);
+    return () => {
+      document.removeEventListener("keydown", onKey);
+      document.removeEventListener("click", onClick);
+    };
+  }, [openDropdown]);
+
+  const openMenu = (label: string) => {
+    if (closeTimer.current) clearTimeout(closeTimer.current);
+    setOpenDropdown(label);
+  };
+
+  const scheduleCloseMenu = () => {
+    if (closeTimer.current) clearTimeout(closeTimer.current);
+    closeTimer.current = setTimeout(() => setOpenDropdown(null), 180);
+  };
+
   const isActive = (href: string) =>
     href === pathname ||
     (href !== "/" &&
@@ -46,8 +139,8 @@ export default function Header() {
   return (
     <header
       className={cn(
-        "sticky top-0 z-50 bg-white transition-shadow duration-300",
-        scrolled && "border-b border-slate-200/70 shadow-sm",
+        "sticky top-0 z-50 border-b border-slate-200/70 bg-white transition-shadow duration-300",
+        scrolled && "shadow-sm",
       )}
     >
       <div className="mx-auto flex w-full max-w-7xl items-center justify-between gap-4 px-5 py-3 sm:px-8">
@@ -71,20 +164,84 @@ export default function Header() {
         </Link>
 
         <nav className="hidden items-center gap-1 lg:flex">
-          {navLinks.map((link) => (
-            <Link
-              key={link.label}
-              href={link.href}
-              className={cn(
-                "rounded-full px-4 py-2 text-sm font-semibold transition-colors",
-                isActive(link.href)
-                  ? "text-fort-green-700"
-                  : "text-fort-navy/80 hover:text-fort-green-700",
-              )}
-            >
-              {link.label}
-            </Link>
-          ))}
+          {navLinks.map((link) => {
+            const hasMenu = (MEGA_MENU_LABELS as readonly string[]).includes(
+              link.label,
+            );
+
+            if (!hasMenu) {
+              return (
+                <Link
+                  key={link.label}
+                  href={link.href}
+                  className={cn(
+                    "rounded-full px-4 py-2 text-sm font-semibold transition-colors",
+                    isActive(link.href)
+                      ? "text-fort-green-700"
+                      : "text-fort-navy/80 hover:text-fort-green-700",
+                  )}
+                >
+                  {link.label}
+                </Link>
+              );
+            }
+
+            const isOpen = openDropdown === link.label;
+
+            return (
+              <div
+                key={link.label}
+                data-nav-dropdown
+                className="relative"
+                onMouseEnter={() => openMenu(link.label)}
+                onMouseLeave={scheduleCloseMenu}
+              >
+                <div
+                  className={cn(
+                    "flex items-center rounded-full text-sm font-semibold transition-colors",
+                    isActive(link.href) || isOpen
+                      ? "text-fort-green-700"
+                      : "text-fort-navy/80 hover:text-fort-green-700",
+                  )}
+                >
+                  <Link href={link.href} className="rounded-full py-2 pl-4 pr-1">
+                    {link.label}
+                  </Link>
+                  <button
+                    type="button"
+                    onClick={() =>
+                      setOpenDropdown((cur) => (cur === link.label ? null : link.label))
+                    }
+                    aria-label={`${link.label} menu`}
+                    aria-expanded={isOpen}
+                    className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full mr-1"
+                  >
+                    <ChevronDown
+                      className={cn(
+                        "h-3.5 w-3.5 transition-transform duration-300",
+                        isOpen && "rotate-180",
+                      )}
+                    />
+                  </button>
+                </div>
+
+                <div
+                  className={cn(
+                    "absolute left-1/2 top-full z-50 -translate-x-1/2 pt-3 transition-all duration-200",
+                    isOpen
+                      ? "translate-y-0 opacity-100"
+                      : "pointer-events-none -translate-y-1 opacity-0",
+                  )}
+                >
+                  {link.label === "Services" ? (
+                    <ServicesMenu onNavigate={() => setOpenDropdown(null)} />
+                  ) : (
+                    <BlogMenu onNavigate={() => setOpenDropdown(null)} />
+                  )}
+                </div>
+              </div>
+            );
+          })}
         </nav>
 
         <div className="hidden items-center gap-3 lg:flex">
@@ -188,23 +345,94 @@ export default function Header() {
         </div>
 
         <nav className="flex flex-1 flex-col gap-1 overflow-y-auto px-4 py-5">
-          {navLinks.map((link, i) => (
-            <Link
-              key={link.label}
-              href={link.href}
-              style={{ transitionDelay: open ? `${i * 40 + 80}ms` : "0ms" }}
-              className={cn(
-                "group flex items-center justify-between rounded-xl px-4 py-3 text-base font-semibold transition-all duration-300 ease-out",
-                open ? "translate-x-0 opacity-100" : "translate-x-4 opacity-0",
-                isActive(link.href)
-                  ? "bg-fort-green-50 text-fort-green-700"
-                  : "text-fort-navy hover:bg-slate-50 hover:text-fort-green-700",
-              )}
-            >
-              {link.label}
-              <ChevronRight className="h-4 w-4 text-fort-navy/25 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:text-fort-green" />
-            </Link>
-          ))}
+          {navLinks.map((link, i) => {
+            const hasSub = (MEGA_MENU_LABELS as readonly string[]).includes(
+              link.label,
+            );
+
+            if (!hasSub) {
+              return (
+                <Link
+                  key={link.label}
+                  href={link.href}
+                  style={{ transitionDelay: open ? `${i * 40 + 80}ms` : "0ms" }}
+                  className={cn(
+                    "group flex items-center justify-between rounded-xl px-4 py-3 text-base font-semibold transition-all duration-300 ease-out",
+                    open ? "translate-x-0 opacity-100" : "translate-x-4 opacity-0",
+                    isActive(link.href)
+                      ? "bg-fort-green-50 text-fort-green-700"
+                      : "text-fort-navy hover:bg-slate-50 hover:text-fort-green-700",
+                  )}
+                >
+                  {link.label}
+                  <ChevronRight className="h-4 w-4 text-fort-navy/25 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:text-fort-green" />
+                </Link>
+              );
+            }
+
+            const expanded = expandedMobile === link.label;
+            const subItems =
+              link.label === "Services"
+                ? services.map((s) => ({ key: s.slug, label: s.title, href: `/services#${s.slug}` }))
+                : blogPosts.map((p) => ({ key: p.slug, label: p.title, href: `/blog/${p.slug}` }));
+
+            return (
+              <div
+                key={link.label}
+                style={{ transitionDelay: open ? `${i * 40 + 80}ms` : "0ms" }}
+                className={cn(
+                  "rounded-xl transition-all duration-300 ease-out",
+                  open ? "translate-x-0 opacity-100" : "translate-x-4 opacity-0",
+                  isActive(link.href)
+                    ? "bg-fort-green-50 text-fort-green-700"
+                    : "text-fort-navy",
+                )}
+              >
+                <div className="flex items-center justify-between">
+                  <Link
+                    href={link.href}
+                    className="flex-1 rounded-xl px-4 py-3 text-base font-semibold transition-colors hover:text-fort-green-700"
+                  >
+                    {link.label}
+                  </Link>
+                  <button
+                    type="button"
+                    onClick={() => setExpandedMobile(expanded ? null : link.label)}
+                    aria-label={`${expanded ? "Collapse" : "Expand"} ${link.label}`}
+                    aria-expanded={expanded}
+                    className="flex h-11 w-11 shrink-0 items-center justify-center text-fort-navy/40 transition-colors hover:text-fort-green-700"
+                  >
+                    <ChevronDown
+                      className={cn(
+                        "h-4.5 w-4.5 transition-transform duration-300",
+                        expanded && "rotate-180",
+                      )}
+                    />
+                  </button>
+                </div>
+                <div
+                  className={cn(
+                    "grid transition-all duration-300 ease-out",
+                    expanded ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0",
+                  )}
+                >
+                  <div className="overflow-hidden">
+                    <div className="flex flex-col gap-0.5 py-1 pl-4">
+                      {subItems.map((item) => (
+                        <Link
+                          key={item.key}
+                          href={item.href}
+                          className="rounded-lg px-4 py-2 text-sm font-medium text-fort-navy/70 transition-colors hover:bg-white hover:text-fort-green-700"
+                        >
+                          {item.label}
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
         </nav>
 
         <div className="border-t border-slate-100 bg-fort-green-50/30 px-5 py-5">

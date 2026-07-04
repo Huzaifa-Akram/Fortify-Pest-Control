@@ -269,7 +269,8 @@ export const whyChooseUs = [
 export const navLinks = [
   { label: "Home", href: "/" },
   { label: "Services", href: "/services" },
-  { label: "About", href: "/about" },
+  { label: "About", href: "/#about" },
+  { label: "Blog", href: "/blog" },
   { label: "Service Areas", href: "/#service-areas" },
   { label: "Contact", href: "/contact" },
 ];

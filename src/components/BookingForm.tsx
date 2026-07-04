@@ -129,7 +129,7 @@ export default function BookingForm() {
             {serviceAreas.map((area) => (
               <option key={area}>{area}</option>
             ))}
-            <option>Other (Southern Manitoba)</option>
+            <option>Other (Manitoba)</option>
           </select>
         </div>
       </div>
