@@ -10,8 +10,10 @@ import CTASection from "@/components/sections/CTASection";
 import BlogCard from "@/components/BlogCard";
 import RelatedArticlesCarousel from "@/components/RelatedArticlesCarousel";
 import ShareBar from "@/components/ShareBar";
+import JsonLd from "@/components/JsonLd";
 import { blogPosts, formatBlogDate } from "@/lib/blog";
 import { site } from "@/lib/site";
+import { BASE_URL, breadcrumbJsonLd } from "@/lib/seo";
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -38,6 +40,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       url: `/blog/${post.slug}`,
       images: [{ url: post.image }],
     },
+    twitter: {
+      card: "summary_large_image",
+      title: post.title,
+      description: post.excerpt,
+      images: [post.image],
+    },
   };
 }
 
@@ -53,22 +61,34 @@ export default async function BlogPostPage({ params }: Props) {
     "@type": "BlogPosting",
     headline: post.title,
     description: post.excerpt,
-    image: `https://fortifypest.ca${post.image}`,
+    image: `${BASE_URL}${post.image}`,
     datePublished: post.date,
+    dateModified: post.date,
     author: {
       "@type": "Organization",
       name: site.name,
-      url: "https://fortifypest.ca",
+      url: BASE_URL,
     },
-    publisher: { "@type": "Organization", name: site.name },
-    mainEntityOfPage: `https://fortifypest.ca/blog/${post.slug}`,
+    publisher: {
+      "@type": "Organization",
+      name: site.name,
+      logo: {
+        "@type": "ImageObject",
+        url: `${BASE_URL}/logo.svg`,
+      },
+    },
+    mainEntityOfPage: `${BASE_URL}/blog/${post.slug}`,
   };
 
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      <JsonLd data={jsonLd} />
+      <JsonLd
+        data={breadcrumbJsonLd([
+          { name: "Home", path: "/" },
+          { name: "Blog", path: "/blog" },
+          { name: post.title, path: `/blog/${post.slug}` },
+        ])}
       />
       <section className="relative overflow-hidden bg-fort-navy text-white">
         <div className="absolute inset-0">

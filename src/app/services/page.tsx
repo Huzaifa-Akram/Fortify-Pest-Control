@@ -1,21 +1,30 @@
-import type { Metadata } from "next";
 import { Phone } from "lucide-react";
 import Container from "@/components/ui/Container";
 import Button from "@/components/ui/Button";
 import PageHero from "@/components/PageHero";
 import CTASection from "@/components/sections/CTASection";
 import ServiceSearch from "@/components/ServiceSearch";
+import JsonLd from "@/components/JsonLd";
 import { services, site } from "@/lib/site";
+import { pageMetadata, breadcrumbJsonLd, servicesJsonLd } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata = pageMetadata({
   title: "Pest Control Services",
   description:
     "Explore Fortify Pest Control's full range of services — bed bug, cockroach, rodent, ant, spider, wasp, hornet, pigeon, maple bug, bat and squirrel control across Manitoba.",
-};
+  path: "/services",
+});
 
 export default function ServicesPage() {
   return (
     <>
+      <JsonLd data={servicesJsonLd} />
+      <JsonLd
+        data={breadcrumbJsonLd([
+          { name: "Home", path: "/" },
+          { name: "Services", path: "/services" },
+        ])}
+      />
       <PageHero
         crumb="Services"
         title="Pest control services for every situation"

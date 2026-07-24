@@ -1,19 +1,27 @@
-import type { Metadata } from "next";
 import { Phone, Mail, Clock, MapPin, ShieldCheck } from "lucide-react";
 import Container from "@/components/ui/Container";
 import PageHero from "@/components/PageHero";
 import ContactForm from "@/components/ContactForm";
+import JsonLd from "@/components/JsonLd";
 import { site } from "@/lib/site";
+import { pageMetadata, breadcrumbJsonLd } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata = pageMetadata({
   title: "Contact Us",
   description:
     "Get in touch with Fortify Pest Control Inc. Call 431-481-7786, email us, or send a message and we'll get right back to you. Serving Winnipeg and Manitoba.",
-};
+  path: "/contact",
+});
 
 export default function ContactPage() {
   return (
     <>
+      <JsonLd
+        data={breadcrumbJsonLd([
+          { name: "Home", path: "/" },
+          { name: "Contact", path: "/contact" },
+        ])}
+      />
       <PageHero
         crumb="Contact"
         title="Get in touch"

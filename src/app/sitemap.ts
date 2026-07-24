@@ -4,7 +4,7 @@ import { blogPosts } from "@/lib/blog";
 const baseUrl = "https://fortifypest.ca";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const routes = ["", "/services", "/about", "/contact", "/blog"];
+  const routes = ["", "/services", "/contact", "/blog"];
   const now = new Date();
 
   const pages: MetadataRoute.Sitemap = routes.map((route) => ({

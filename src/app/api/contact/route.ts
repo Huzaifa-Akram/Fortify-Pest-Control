@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { site } from "@/lib/site";
+import { renderContactEmail } from "@/lib/email";
 
 export const runtime = "nodejs";
 
@@ -8,16 +9,45 @@ type Payload = {
   email?: string;
   phone?: string;
   message?: string;
+  source?: string;
+  /** Honeypot — hidden field real users never see. Bots fill it in. */
+  company?: string;
 };
 
 const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-function escapeHtml(value: string) {
-  return value
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;");
+const MAX = { name: 100, email: 200, phone: 40, message: 4000 };
+
+/**
+ * Lightweight in-memory, per-IP rate limiter — no paid service required.
+ * Note: state lives per server instance, so on heavily-scaled serverless hosts
+ * limits are approximate. That's fine here: it stops a single abuser hammering
+ * the form, which is the goal. Swap in a shared store (e.g. Upstash) if needed.
+ */
+const RATE = { windowMs: 10 * 60 * 1000, max: 5 };
+const hits = new Map<string, { count: number; first: number }>();
+
+function clientIp(request: Request): string {
+  const xff = request.headers.get("x-forwarded-for");
+  if (xff) return xff.split(",")[0].trim();
+  return request.headers.get("x-real-ip") || "local";
+}
+
+function isRateLimited(ip: string): boolean {
+  const now = Date.now();
+  // Opportunistic cleanup so the map can't grow without bound.
+  if (hits.size > 5000) {
+    for (const [key, value] of hits) {
+      if (now - value.first > RATE.windowMs) hits.delete(key);
+    }
+  }
+  const hit = hits.get(ip);
+  if (!hit || now - hit.first > RATE.windowMs) {
+    hits.set(ip, { count: 1, first: now });
+    return false;
+  }
+  hit.count += 1;
+  return hit.count > RATE.max;
 }
 
 export async function POST(request: Request) {
@@ -26,6 +56,21 @@ export async function POST(request: Request) {
     data = await request.json();
   } catch {
     return NextResponse.json({ error: "Invalid request." }, { status: 400 });
+  }
+
+  // Honeypot: silently accept (so the bot moves on) but send nothing.
+  if (data.company && data.company.trim() !== "") {
+    return NextResponse.json({ ok: true });
+  }
+
+  // Block repeat submissions from the same IP.
+  if (isRateLimited(clientIp(request))) {
+    return NextResponse.json(
+      {
+        error: `You've sent several requests already. Please wait a few minutes, or call us at ${site.phone}.`,
+      },
+      { status: 429 },
+    );
   }
 
   const fullName = data.fullName?.trim();
@@ -45,29 +90,28 @@ export async function POST(request: Request) {
       { status: 400 },
     );
   }
+  if (
+    fullName.length > MAX.name ||
+    email.length > MAX.email ||
+    (phone && phone.length > MAX.phone) ||
+    (message && message.length > MAX.message)
+  ) {
+    return NextResponse.json(
+      { error: "That submission looks too long. Please shorten it and try again." },
+      { status: 400 },
+    );
+  }
 
-  const fields: Record<string, string> = {
-    Name: fullName,
-    Email: email,
-    Phone: phone || "—",
-    Message: message || "—",
-  };
+  const sourceLabel =
+    data.source === "quote" ? "Quote request" : "Contact message";
 
-  const rows = Object.entries(fields)
-    .map(
-      ([k, v]) =>
-        `<tr><td style="padding:6px 12px;font-weight:600;color:#033562">${k}</td><td style="padding:6px 12px;color:#0f1d2e">${escapeHtml(
-          v,
-        )}</td></tr>`,
-    )
-    .join("");
-
-  const html = `
-    <div style="font-family:Arial,sans-serif;max-width:560px;margin:auto">
-      <h2 style="color:#033562">New contact message — ${site.name}</h2>
-      <table style="border-collapse:collapse;width:100%;background:#f8fafc;border-radius:8px">${rows}</table>
-      <p style="color:#64748b;font-size:12px;margin-top:16px">Sent from the fortifypest.ca contact form.</p>
-    </div>`;
+  const { html, text } = renderContactEmail({
+    name: fullName,
+    email,
+    phone,
+    message,
+    sourceLabel,
+  });
 
   const apiKey = process.env.RESEND_API_KEY;
 
@@ -82,11 +126,14 @@ export async function POST(request: Request) {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          from: process.env.CONTACT_FROM_EMAIL || "Fortify Website <onboarding@resend.dev>",
+          from:
+            process.env.CONTACT_FROM_EMAIL ||
+            "Fortify Pest Control <noreply@fortifypest.ca>",
           to: [site.email],
           reply_to: email,
-          subject: `New contact message from ${fullName}`,
+          subject: `${sourceLabel} from ${fullName}`,
           html,
+          text,
         }),
       });
       if (!res.ok) {
@@ -105,7 +152,12 @@ export async function POST(request: Request) {
       );
     }
   } else {
-    console.log("[Fortify contact submission]", fields);
+    console.log("[Fortify contact submission]", {
+      fullName,
+      email,
+      phone,
+      message,
+    });
   }
 
   return NextResponse.json({ ok: true });

@@ -84,10 +84,9 @@ export default function ServiceCard({
             <Link
               href="/contact"
               onClick={(e) => e.stopPropagation()}
-              className="inline-flex items-center justify-center gap-1.5 rounded-full bg-fort-green px-5 py-2.5 text-sm font-semibold text-white transition-colors duration-200 hover:bg-fort-green-600"
+              className="inline-flex items-center justify-center rounded-full bg-fort-green px-5 py-2.5 text-sm font-semibold text-white transition-colors duration-200 hover:bg-fort-green-600"
             >
               Request this service
-              <ArrowRight className="h-4 w-4" />
             </Link>
             <a
               href={site.phoneHref}

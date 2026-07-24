@@ -8,7 +8,6 @@ import {
   ArrowRight,
 } from "lucide-react";
 import { cn } from "@/lib/cn";
-import { services } from "@/lib/site";
 
 type Status = "idle" | "submitting" | "success" | "error";
 
@@ -84,6 +83,22 @@ export default function HeroQuoteForm() {
           className="mt-5 space-y-[14px]"
           noValidate
         >
+          {/* Anti-spam honeypot — hidden from people, bots that fill it are dropped */}
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute -left-[9999px] top-auto h-px w-px overflow-hidden"
+          >
+            <label htmlFor="company-hero">Company</label>
+            <input
+              id="company-hero"
+              type="text"
+              name="company"
+              tabIndex={-1}
+              autoComplete="off"
+            />
+          </div>
+          <input type="hidden" name="source" value="quote" />
+
           {/* Name + Phone row */}
           <div className="grid gap-[14px] sm:grid-cols-2">
             <div>
@@ -153,36 +168,6 @@ export default function HeroQuoteForm() {
                 "focus:bg-white focus:ring-2 focus:ring-fort-green/40"
               )}
             />
-          </div>
-
-          {/* Service */}
-          <div>
-            <label
-              htmlFor="heroService"
-              className="mb-[5px] block text-[12.5px] font-semibold text-fort-navy/70"
-            >
-              Service needed
-            </label>
-            <select
-              id="heroService"
-              name="service"
-              defaultValue=""
-              className={cn(
-                "hero-form-input w-full rounded-[10px] border-0 bg-slate-50 px-3.5 py-[11px]",
-                "text-sm text-fort-navy",
-                "outline-none ring-1 ring-slate-200/80",
-                "transition-shadow duration-150",
-                "focus:bg-white focus:ring-2 focus:ring-fort-green/40"
-              )}
-            >
-              <option value="" disabled>
-                Select a service
-              </option>
-              {services.map((s) => (
-                <option key={s.slug}>{s.title}</option>
-              ))}
-              <option>Not sure — need an inspection</option>
-            </select>
           </div>
 
           {/* Message */}
