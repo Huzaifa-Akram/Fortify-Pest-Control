@@ -280,28 +280,44 @@ export type Faq = { q: string; a: string };
 
 export const faqs: Faq[] = [
   {
-    q: "Are your pest control treatments safe for children and pets?",
-    a: "Yes. We use eco-friendly, professionally approved products and apply them precisely where pests hide — not across open living spaces. Your technician will explain any short re-entry or airing-out times so your family and pets stay comfortable and safe.",
+    q: "How can I identify whether my home or business has a pest problem?",
+    a: "Common indicators of a pest infestation include seeing insects or rodents, finding droppings, hearing scratching or movement inside walls or ceilings, noticing damaged food packaging, or discovering damage to wood, insulation, or other structural areas.",
   },
   {
-    q: "Do you offer free inspections and quotes?",
-    a: "Absolutely. Every job starts with a free, no-obligation inspection so we can confirm exactly what you're dealing with and give you a clear, upfront quote before any work begins.",
+    q: "Are your pest control services safe for children and household pets?",
+    a: "Yes. We use Health Canada-approved pest control products and apply them with precision using industry-approved methods. Our treatments are designed to effectively eliminate pests while helping protect your family, pets, and the environment.",
   },
   {
-    q: "How quickly can you come out?",
-    a: "For Winnipeg and most surrounding Manitoba communities we can usually schedule an inspection within a day or two, and we keep room in the calendar for urgent problems like wasps or rodents. Give us a call and we'll find you the soonest available slot.",
+    q: "Which locations do you provide pest control services in?",
+    a: "We proudly serve residential and commercial customers throughout Winnipeg and nearby communities. If you're unsure whether you're within our service area, simply contact us and we'll be happy to assist.",
   },
   {
-    q: "What happens if the pests come back?",
-    a: "Every service is backed by our 100% satisfaction guarantee. If pests return within the treatment window, so do we — at no extra charge — until the problem is fully resolved.",
+    q: "What factors determine the cost of pest control services?",
+    a: "Pricing depends on several factors, including the type of pest, the severity of the infestation, the size of the property, and whether you choose a one-time treatment or an ongoing pest protection plan.",
   },
   {
-    q: "Do you handle both homes and businesses?",
-    a: "We do. We provide discreet residential service as well as tailored commercial programs for restaurants, offices, rental properties, and more, with flexible scheduling that keeps disruption to a minimum.",
+    q: "Can I schedule an urgent or same-day pest control appointment?",
+    a: "Yes. Whenever possible, we offer prompt response times, including same-day service for urgent pest situations such as wasp nests, rodent activity, or other immediate infestations.",
   },
   {
-    q: "Which areas do you serve?",
-    a: "We're locally owned and operated, serving Winnipeg, Brandon, Winkler, Morden, Selkirk, Steinbach, and the surrounding communities throughout Manitoba.",
+    q: "Will I need to leave my property during the treatment?",
+    a: "Most pest control treatments allow you to remain in your home or business. If a temporary evacuation is recommended for a specific treatment, our technician will provide clear instructions before the service begins.",
+  },
+  {
+    q: "When should I expect to see results after treatment?",
+    a: "Most customers notice a significant decrease in pest activity within 24 to 48 hours. Depending on the pest species and the level of infestation, complete control may take up to two weeks, and follow-up treatments may occasionally be recommended.",
+  },
+  {
+    q: "Do your pest control services include a satisfaction guarantee?",
+    a: "Yes. Most of our treatments are backed by a service guarantee. If the covered pests return during the guarantee period, we'll provide follow-up service in accordance with the terms of your agreement.",
+  },
+  {
+    q: "Why should I choose a pest protection plan instead of a one-time treatment?",
+    a: "A one-time treatment is intended to eliminate an existing pest problem, while a protection plan provides ongoing inspections, preventative treatments, and year-round monitoring to reduce the risk of future infestations.",
+  },
+  {
+    q: "What steps can I take to keep pests out of my property?",
+    a: "Keeping pests away starts with prevention. Seal cracks and openings around your property, repair leaking pipes, store food in sealed containers, reduce clutter, eliminate excess moisture, and maintain a clean environment to make your home or business less attractive to pests.",
   },
 ];
 
