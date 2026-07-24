@@ -26,6 +26,16 @@ export const site = {
   email: "info@fortifypest.ca",
   emailHref: "mailto:info@fortifypest.ca",
   region: "Manitoba",
+  address: {
+    street: "3015 Pembina Hwy",
+    city: "Winnipeg",
+    province: "MB",
+    postalCode: "R3T 6H9",
+    country: "CA",
+    full: "3015 Pembina Hwy, Winnipeg, MB R3T 6H9",
+  },
+  mapHref:
+    "https://www.google.com/maps/search/?api=1&query=3015%20Pembina%20Hwy%2C%20Winnipeg%2C%20MB%20R3T%206H9",
   slogan:
     "Building a Fort Around Your Home and Business, One Pest-Free Property at a Time.",
   hours: [
@@ -264,6 +274,35 @@ export const whyChooseUs = [
   "100% satisfaction guarantee",
   "Locally owned & operated in Manitoba",
   "Dedicated to protecting your property",
+];
+
+export type Faq = { q: string; a: string };
+
+export const faqs: Faq[] = [
+  {
+    q: "Are your pest control treatments safe for children and pets?",
+    a: "Yes. We use eco-friendly, professionally approved products and apply them precisely where pests hide — not across open living spaces. Your technician will explain any short re-entry or airing-out times so your family and pets stay comfortable and safe.",
+  },
+  {
+    q: "Do you offer free inspections and quotes?",
+    a: "Absolutely. Every job starts with a free, no-obligation inspection so we can confirm exactly what you're dealing with and give you a clear, upfront quote before any work begins.",
+  },
+  {
+    q: "How quickly can you come out?",
+    a: "For Winnipeg and most surrounding Manitoba communities we can usually schedule an inspection within a day or two, and we keep room in the calendar for urgent problems like wasps or rodents. Give us a call and we'll find you the soonest available slot.",
+  },
+  {
+    q: "What happens if the pests come back?",
+    a: "Every service is backed by our 100% satisfaction guarantee. If pests return within the treatment window, so do we — at no extra charge — until the problem is fully resolved.",
+  },
+  {
+    q: "Do you handle both homes and businesses?",
+    a: "We do. We provide discreet residential service as well as tailored commercial programs for restaurants, offices, rental properties, and more, with flexible scheduling that keeps disruption to a minimum.",
+  },
+  {
+    q: "Which areas do you serve?",
+    a: "We're locally owned and operated, serving Winnipeg, Brandon, Winkler, Morden, Selkirk, Steinbach, and the surrounding communities throughout Manitoba.",
+  },
 ];
 
 export const navLinks = [

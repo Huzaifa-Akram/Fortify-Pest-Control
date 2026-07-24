@@ -7,9 +7,6 @@ type Payload = {
   fullName?: string;
   email?: string;
   phone?: string;
-  propertyType?: string;
-  city?: string;
-  service?: string;
   message?: string;
 };
 
@@ -34,10 +31,11 @@ export async function POST(request: Request) {
   const fullName = data.fullName?.trim();
   const email = data.email?.trim();
   const phone = data.phone?.trim();
+  const message = data.message?.trim();
 
-  if (!fullName || !email || !phone) {
+  if (!fullName || !email) {
     return NextResponse.json(
-      { error: "Please provide your name, email, and phone number." },
+      { error: "Please provide your name and email." },
       { status: 400 },
     );
   }
@@ -51,11 +49,8 @@ export async function POST(request: Request) {
   const fields: Record<string, string> = {
     Name: fullName,
     Email: email,
-    Phone: phone,
-    "Property type": data.propertyType?.trim() || "—",
-    City: data.city?.trim() || "—",
-    Service: data.service?.trim() || "—",
-    Message: data.message?.trim() || "—",
+    Phone: phone || "—",
+    Message: message || "—",
   };
 
   const rows = Object.entries(fields)
@@ -69,9 +64,9 @@ export async function POST(request: Request) {
 
   const html = `
     <div style="font-family:Arial,sans-serif;max-width:560px;margin:auto">
-      <h2 style="color:#033562">New quote request — ${site.name}</h2>
+      <h2 style="color:#033562">New contact message — ${site.name}</h2>
       <table style="border-collapse:collapse;width:100%;background:#f8fafc;border-radius:8px">${rows}</table>
-      <p style="color:#64748b;font-size:12px;margin-top:16px">Sent from the fortifypest.ca booking form.</p>
+      <p style="color:#64748b;font-size:12px;margin-top:16px">Sent from the fortifypest.ca contact form.</p>
     </div>`;
 
   const apiKey = process.env.RESEND_API_KEY;
@@ -90,7 +85,7 @@ export async function POST(request: Request) {
           from: process.env.CONTACT_FROM_EMAIL || "Fortify Website <onboarding@resend.dev>",
           to: [site.email],
           reply_to: email,
-          subject: `New quote request from ${fullName}`,
+          subject: `New contact message from ${fullName}`,
           html,
         }),
       });

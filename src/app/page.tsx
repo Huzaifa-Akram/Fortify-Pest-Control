@@ -7,6 +7,7 @@ import Process from "@/components/sections/Process";
 import ServiceAreas from "@/components/sections/ServiceAreas";
 import Testimonials from "@/components/sections/Testimonials";
 import BlogMarquee from "@/components/sections/BlogMarquee";
+import FAQ from "@/components/sections/FAQ";
 import CTASection from "@/components/sections/CTASection";
 
 export default function Home() {
@@ -21,6 +22,7 @@ export default function Home() {
       <ServiceAreas />
       <Testimonials />
       <BlogMarquee />
+      <FAQ />
       <CTASection />
     </>
   );

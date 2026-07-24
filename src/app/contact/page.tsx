@@ -2,13 +2,13 @@ import type { Metadata } from "next";
 import { Phone, Mail, Clock, MapPin, ShieldCheck } from "lucide-react";
 import Container from "@/components/ui/Container";
 import PageHero from "@/components/PageHero";
-import BookingForm from "@/components/BookingForm";
-import { serviceAreas, site } from "@/lib/site";
+import ContactForm from "@/components/ContactForm";
+import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Contact & Free Quote",
+  title: "Contact Us",
   description:
-    "Request a free, no-obligation pest control quote from Fortify Pest Control Inc. Call 431-481-7786 or fill out our booking form. Serving Winnipeg and Manitoba.",
+    "Get in touch with Fortify Pest Control Inc. Call 431-481-7786, email us, or send a message and we'll get right back to you. Serving Winnipeg and Manitoba.",
 };
 
 export default function ContactPage() {
@@ -16,8 +16,10 @@ export default function ContactPage() {
     <>
       <PageHero
         crumb="Contact"
-        title="Get your free, no-obligation quote"
-        subtitle="Tell us about your pest problem and we'll get back to you quickly with a plan to fortify your property."
+        title="Get in touch"
+        subtitle="Have a question or dealing with a pest problem? Send us a message and our team will get right back to you."
+        image="/hero-bg-2.png"
+        imagePosition="object-[62%_34%]"
       />
 
       <section className="bg-white py-16 sm:py-20">
@@ -26,14 +28,14 @@ export default function ContactPage() {
           <div className="lg:col-span-7">
             <div className="rounded-3xl border border-slate-100 bg-white p-6 shadow-card sm:p-8">
               <h2 className="text-2xl font-extrabold text-fort-navy">
-                Request a quote
+                Send us a message
               </h2>
               <p className="mt-2 text-sm text-slate-600">
                 Fields marked with <span className="text-fort-green-600">*</span>{" "}
-                are required.
+                are required. We usually reply within one business day.
               </p>
               <div className="mt-7">
-                <BookingForm />
+                <ContactForm />
               </div>
             </div>
           </div>
@@ -43,14 +45,14 @@ export default function ContactPage() {
             <div className="rounded-3xl bg-fort-navy p-7 text-white shadow-soft">
               <h3 className="text-lg font-bold">Talk to us directly</h3>
               <p className="mt-2 text-sm text-fort-navy-100">
-                Prefer to call? We&apos;re happy to help over the phone.
+                Prefer to call or drop by? Here&apos;s how to reach us.
               </p>
               <div className="mt-6 space-y-4">
                 <a
                   href={site.phoneHref}
                   className="flex items-center gap-4 rounded-2xl bg-white/[0.06] px-4 py-3.5 transition-colors hover:bg-white/[0.12]"
                 >
-                  <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-fort-green text-white">
+                  <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-fort-green text-white">
                     <Phone className="h-5 w-5" />
                   </span>
                   <span>
@@ -64,7 +66,7 @@ export default function ContactPage() {
                   href={site.emailHref}
                   className="flex items-center gap-4 rounded-2xl bg-white/[0.06] px-4 py-3.5 transition-colors hover:bg-white/[0.12]"
                 >
-                  <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-fort-green text-white">
+                  <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-fort-green text-white">
                     <Mail className="h-5 w-5" />
                   </span>
                   <span>
@@ -72,6 +74,24 @@ export default function ContactPage() {
                       Email
                     </span>
                     <span className="text-base font-bold">{site.email}</span>
+                  </span>
+                </a>
+                <a
+                  href={site.mapHref}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-4 rounded-2xl bg-white/[0.06] px-4 py-3.5 transition-colors hover:bg-white/[0.12]"
+                >
+                  <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-fort-green text-white">
+                    <MapPin className="h-5 w-5" />
+                  </span>
+                  <span>
+                    <span className="block text-xs font-semibold uppercase tracking-wider text-fort-green-200">
+                      Visit us
+                    </span>
+                    <span className="text-base font-bold">
+                      {site.address.full}
+                    </span>
                   </span>
                 </a>
               </div>
@@ -93,23 +113,6 @@ export default function ContactPage() {
                   </li>
                 ))}
               </ul>
-            </div>
-
-            <div className="rounded-3xl border border-slate-100 bg-slate-50/70 p-7">
-              <h3 className="flex items-center gap-2 text-base font-bold text-fort-navy">
-                <MapPin className="h-5 w-5 text-fort-green-600" />
-                Service areas
-              </h3>
-              <div className="mt-4 flex flex-wrap gap-2">
-                {serviceAreas.map((area) => (
-                  <span
-                    key={area}
-                    className="rounded-full bg-white px-3 py-1.5 text-xs font-semibold text-fort-navy shadow-card"
-                  >
-                    {area}
-                  </span>
-                ))}
-              </div>
             </div>
 
             <div className="flex items-center gap-3 rounded-3xl border border-fort-green-200 bg-fort-green-50/50 p-5">

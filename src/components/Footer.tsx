@@ -102,6 +102,22 @@ export default function Footer() {
                   {site.email}
                 </a>
               </li>
+              <li>
+                <a
+                  href={site.mapHref}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-start gap-3 text-fort-navy-100/90 transition-colors hover:text-fort-green-300"
+                >
+                  <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-fort-green-400" />
+                  <span>
+                    {site.address.street}
+                    <br />
+                    {site.address.city}, {site.address.province}{" "}
+                    {site.address.postalCode}
+                  </span>
+                </a>
+              </li>
               <li className="flex items-start gap-3 text-fort-navy-100/80">
                 <Clock className="mt-0.5 h-4 w-4 shrink-0 text-fort-green-400" />
                 <div className="space-y-1">
