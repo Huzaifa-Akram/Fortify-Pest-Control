@@ -2,6 +2,7 @@ import { Phone, Mail, Clock, MapPin, ShieldCheck } from "lucide-react";
 import Container from "@/components/ui/Container";
 import PageHero from "@/components/PageHero";
 import ContactForm from "@/components/ContactForm";
+import SocialLinks from "@/components/SocialLinks";
 import JsonLd from "@/components/JsonLd";
 import { site } from "@/lib/site";
 import { pageMetadata, breadcrumbJsonLd } from "@/lib/seo";
@@ -102,6 +103,13 @@ export default function ContactPage() {
                     </span>
                   </span>
                 </a>
+              </div>
+
+              <div className="mt-7 border-t border-white/10 pt-6">
+                <span className="text-xs font-semibold uppercase tracking-wider text-fort-green-200">
+                  Follow us
+                </span>
+                <SocialLinks className="mt-3.5" />
               </div>
             </div>
 

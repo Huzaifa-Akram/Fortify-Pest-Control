@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { site, services, serviceAreas } from "@/lib/site";
+import { site, services, serviceAreas, socialLinks } from "@/lib/site";
 
 /** Canonical production origin. Keep in sync with metadataBase in layout.tsx. */
 export const BASE_URL = "https://fortifypest.ca";
@@ -83,6 +83,9 @@ export const localBusinessJsonLd = {
     addressCountry: site.address.country,
   },
   areaServed: serviceAreas.map((area) => ({ "@type": "City", name: area })),
+  /* Confirms to Google that these profiles are the same entity as the business,
+     which feeds the knowledge panel and helps consolidate brand signals. */
+  sameAs: socialLinks.map((s) => s.href),
   openingHoursSpecification: [
     {
       "@type": "OpeningHoursSpecification",

@@ -2,6 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { Phone, Mail, MapPin, Clock } from "lucide-react";
 import Container from "@/components/ui/Container";
+import SocialLinks from "@/components/SocialLinks";
 import { services, serviceAreas, site } from "@/lib/site";
 
 export default function Footer() {
@@ -36,6 +37,11 @@ export default function Footer() {
               Building a fort around your home and business — one pest-free
               property at a time. Locally owned and operated in Manitoba.
             </p>
+
+            <h3 className="mt-7 text-sm font-bold uppercase tracking-wider text-white">
+              Follow us
+            </h3>
+            <SocialLinks className="mt-3.5" />
           </div>
 
           {/* Grouped Services and Areas for mobile side-by-side layout */}

@@ -43,7 +43,26 @@ export const site = {
     { day: "Saturday", time: "9:00 AM – 4:00 PM" },
     { day: "Sunday", time: "Emergency calls only" },
   ],
+  social: {
+    facebook: "https://www.facebook.com/share/1bofW2TUpF/?mibextid=wwXIfr",
+    instagram:
+      "https://www.instagram.com/fortifypestcontrolinc?utm_source=qr&igsi=dHI4MWtqMXViMnZk",
+  },
 };
+
+/**
+ * Public profiles linked from the footer, the contact page, and the
+ * LocalBusiness `sameAs` array. Only list a platform once the client has a
+ * live, claimed account — an icon pointing nowhere costs more trust than it
+ * buys. Commented-out entries are placeholders for accounts that don't exist.
+ */
+export const socialLinks = [
+  { label: "Facebook", href: site.social.facebook },
+  { label: "Instagram", href: site.social.instagram },
+  // { label: "X",        href: "" }, // no account yet
+  // { label: "LinkedIn", href: "" }, // no account yet
+  // { label: "YouTube",  href: "" }, // no account yet
+] as const;
 
 export type Service = {
   slug: string;
